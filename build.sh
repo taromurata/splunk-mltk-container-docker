@@ -13,11 +13,15 @@ dockerfile="Dockerfile"
 repo="phdrieger/"
 if [ -z "$1" ]; then
   echo "No build parameters set. Using default tag golden-image-cpu for building and running the container."
-  echo "You can use ./build.sh [golden-image-cpu|golden-image-gpu|tf-cpu|tf-gpu|pytorch|nlp] to build the container for different frameworks."
+  echo "You can use ./build.sh [custom-1|golden-image-cpu|golden-image-gpu|tf-cpu|tf-gpu|pytorch|nlp] to build the container for different frameworks."
 else
   tag="$1"
 fi
 case $tag in
+    custom-1)
+		base="ubuntu:20.04"
+		dockerfile="Dockerfile.1.0.custom"
+		;;
 	river)
 		base="python:3.9"
 		dockerfile="Dockerfile.3.9.river"
@@ -117,8 +121,8 @@ case $tag in
 		;;
 esac
 if [ -z "$2" ]; then
-  echo "No target repo set, using default prefix phdrieger/"
-  repo="phdrieger/"
+  echo "No target repo set, using default prefix taromurata/"
+  repo="taromurata/"
 else
   repo="$2"
 fi
